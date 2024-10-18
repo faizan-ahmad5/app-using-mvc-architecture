@@ -22,3 +22,26 @@ export const createUser = async (req, res) => {
       .json({ message: "An error occurred", error: error.message });
   }
 };
+
+// Put Request
+export const updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const updatedUser = req.body;
+    const user = await User.findByIdAndUpdate(userId, updatedUser, {
+      new: true,
+    });
+
+    if (user) {
+      res
+        .status(200)
+        .json({ message: `PUT request - Updating user ${userId}`, data: user });
+    } else {
+      res.status(404).json({ message: `User with ID ${userId} not found` });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "An error occurred", error: error.message });
+  }
+};
