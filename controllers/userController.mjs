@@ -53,12 +53,10 @@ export const deleteUser = async (req, res) => {
     const deletedUser = await User.findByIdAndDelete(userId);
 
     if (deletedUser) {
-      res
-        .status(200)
-        .json({
-          message: `DELETE request - Deleting user ${userId}`,
-          deletedUser,
-        });
+      res.status(200).json({
+        message: `DELETE request - Deleting user ${userId}`,
+        deletedUser,
+      });
     } else {
       res.status(404).json({ message: `User with ID ${userId} not found` });
     }
